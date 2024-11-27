@@ -22,10 +22,10 @@ export const generateCategories = async (): Promise<{ categories: Category[]}> =
       "default": true,
       "title": "Miscellaneous Errors",
       "description": "Errors that don’t fit into other categories.",
-      "email": ["anasta", "23456"],
+      "email": ["anastasiya@ucsd.edu", "jaden@ucsd.edu"],
       "error_lines": {
-        "12345": [2, 5],
-        "23456": [1, 4]
+        "anastasiya@ucsd.edu": [2, 5],
+        "jaden@ucsd.edu": [1]
       },
       "default_deduction": -1
     },
@@ -34,10 +34,10 @@ export const generateCategories = async (): Promise<{ categories: Category[]}> =
       "default": true,
       "title": "Minor Logical Errors or Typos",
       "description": "Small mistakes like syntax errors, misspellings, or sound logic with minor flaws.",
-      "email": ["23456", "34567"],
+      "email": ["jaden@ucsd.edu", "nim@ucsd.edu"],
       "error_lines": {
-        "23456": [3],
-        "34567": [7]
+        "jaden@ucsd.edu": [1],
+        "nim@ucsd.edu": [7]
       },
       "default_deduction": -0.2
     },
@@ -46,10 +46,9 @@ export const generateCategories = async (): Promise<{ categories: Category[]}> =
       "default": true,
       "title": "Fundamental Misunderstanding",
       "description": "Solutions that indicate a complete lack of understanding of the problem.",
-      "email": ["12345", "34567"],
+      "email": ["anastasiya@ucsd.edu"],
       "error_lines": {
-        "12345": [6],
-        "34567": [2, 8]
+        "anastasiya@ucsd.edu": [2, 8]
       },
       "default_deduction": -1
     },
@@ -58,9 +57,9 @@ export const generateCategories = async (): Promise<{ categories: Category[]}> =
       "default": false,
       "title": "Forgot List Methods Are In Place",
       "description": "Errors where students forgot that list methods modify the object in place.",
-      "email": ["45678"],
+      "email": ["nim@ucsd.edu"],
       "error_lines": {
-        "45678": [4]
+        "nim@ucsd.edu": [4]
       },
       "default_deduction": -0.5
     },
@@ -69,10 +68,10 @@ export const generateCategories = async (): Promise<{ categories: Category[]}> =
       "default": false,
       "title": "Missed Edge Cases",
       "description": "Errors where edge cases were not considered in the solution.",
-      "email": ["23456", "45678"],
+      "email": ["anastasiya@ucsd.edu", "nim@ucsd.edu"],
       "error_lines": {
-        "23456": [8],
-        "45678": [2]
+        "anastasiya@ucsd.edu": [8],
+        "nim@ucsd.edu": [2]
       },
       "default_deduction": -0.7
     },
@@ -81,9 +80,9 @@ export const generateCategories = async (): Promise<{ categories: Category[]}> =
       "default": false,
       "title": "Incorrect Variable Names",
       "description": "Errors caused by using undefined or incorrectly named variables.",
-      "email": ["12345"],
+      "email": ["jaden@ucsd.edu"],
       "error_lines": {
-        "12345": [9]
+        "jaden@ucsd.edu": [1]
       },
       "default_deduction": -0.3
     }

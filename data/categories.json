@@ -1,74 +1,71 @@
-{
-  "categories": [
-    {
-      "slug": "miscellaneous-errors",
-      "default": true,
-      "title": "Miscellaneous Errors",
-      "description": "Errors that don’t fit into other categories.",
-      "pids": ["12345", "23456"],
-      "error_lines": {
-        "12345": [2, 5],
-        "23456": [1, 4]
-      },
-      "default_deduction": -1
+{"categories": [
+  {
+    "slug": "miscellaneous",
+    "default": true,
+    "title": "Miscellaneous Errors",
+    "description": "Errors that don’t fit into other categories.",
+    "email": ["anastasiya@ucsd.edu", "jaden@ucsd.edu"],
+    "error_lines": {
+      "anastasiya@ucsd.edu": [2, 5],
+      "jaden@ucsd.edu": [1]
     },
-    {
-      "slug": "minor-logical-errors",
-      "default": true,
-      "title": "Minor Logical Errors or Typos",
-      "description": "Small mistakes like syntax errors, misspellings, or sound logic with minor flaws.",
-      "pids": ["23456", "34567"],
-      "error_lines": {
-        "23456": [3],
-        "34567": [7]
-      },
-      "default_deduction": -0.2
+    "default_deduction": -1
+  },
+  {
+    "slug": "minor-logical-errors",
+    "default": true,
+    "title": "Minor Logical Errors or Typos",
+    "description": "Small mistakes like syntax errors, misspellings, or sound logic with minor flaws.",
+    "email": ["jaden@ucsd.edu", "nim@ucsd.edu"],
+    "error_lines": {
+      "jaden@ucsd.edu": [1],
+      "nim@ucsd.edu": [7]
     },
-    {
-      "slug": "fundamental-misunderstanding",
-      "default": true,
-      "title": "Fundamental Misunderstanding",
-      "description": "Solutions that indicate a complete lack of understanding of the problem.",
-      "pids": ["12345", "34567"],
-      "error_lines": {
-        "12345": [6],
-        "34567": [2, 8]
-      },
-      "default_deduction": -1
+    "default_deduction": -0.2
+  },
+  {
+    "slug": "fundamental-misunderstanding",
+    "default": true,
+    "title": "Fundamental Misunderstanding",
+    "description": "Solutions that indicate a complete lack of understanding of the problem.",
+    "email": ["anastasiya@ucsd.edu"],
+    "error_lines": {
+      "anastasiya@ucsd.edu": [2, 8]
     },
-    {
-      "slug": "forgot-list-methods",
-      "default": false,
-      "title": "Forgot List Methods Are In Place",
-      "description": "Errors where students forgot that list methods modify the object in place.",
-      "pids": ["45678"],
-      "error_lines": {
-        "45678": [4]
-      },
-      "default_deduction": -0.5
+    "default_deduction": -1
+  },
+  {
+    "slug": "forgot-list-methods",
+    "default": false,
+    "title": "Forgot List Methods Are In Place",
+    "description": "Errors where students forgot that list methods modify the object in place.",
+    "email": ["nim@ucsd.edu"],
+    "error_lines": {
+      "nim@ucsd.edu": [4]
     },
-    {
-      "slug": "missed-edge-cases",
-      "default": false,
-      "title": "Missed Edge Cases",
-      "description": "Errors where edge cases were not considered in the solution.",
-      "pids": ["23456", "45678"],
-      "error_lines": {
-        "23456": [8],
-        "45678": [2]
-      },
-      "default_deduction": -0.7
+    "default_deduction": -0.5
+  },
+  {
+    "slug": "missed-edge-cases",
+    "default": false,
+    "title": "Missed Edge Cases",
+    "description": "Errors where edge cases were not considered in the solution.",
+    "email": ["anastasiya@ucsd.edu", "nim@ucsd.edu"],
+    "error_lines": {
+      "anastasiya@ucsd.edu": [8],
+      "nim@ucsd.edu": [2]
     },
-    {
-      "slug": "incorrect-variable-names",
-      "default": false,
-      "title": "Incorrect Variable Names",
-      "description": "Errors caused by using undefined or incorrectly named variables.",
-      "pids": ["12345"],
-      "error_lines": {
-        "12345": [9]
-      },
-      "default_deduction": -0.3
-    }
-  ]
-}
+    "default_deduction": -0.7
+  },
+  {
+    "slug": "incorrect-variable-names",
+    "default": false,
+    "title": "Incorrect Variable Names",
+    "description": "Errors caused by using undefined or incorrectly named variables.",
+    "email": ["jaden@ucsd.edu"],
+    "error_lines": {
+      "jaden@ucsd.edu": [1]
+    },
+    "default_deduction": -0.3
+  }
+]}
