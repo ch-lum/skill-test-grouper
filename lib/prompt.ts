@@ -9,6 +9,7 @@ export const openaiPrompt = `
 
   For each category, return:
   - A URL-safe \`slug\` for routing (e.g., "minor-logical-errors").
+  - Whether the category is a default category (true or false).
   - A \`title\` summarizing the category.
   - A \`description\` explaining the category in 1–2 sentences.
   - An array of PIDs (\`pids\`) identifying the students whose submissions fall into this category.
@@ -16,8 +17,11 @@ export const openaiPrompt = `
 
   Ensure that:
   - **Every PID is included in at least one category.**
+  - **Every PID is associated with at least one error line.**
+  - **Each category contains at least one PID.**
   - If a PID applies to multiple categories, include it in all relevant categories.
   - If a PID does not fit into any generated categories, it must appear in "Miscellaneous Errors."
+  - The slug for "Miscellaneous Errors" must be "miscellaneous."
 
   Additionally, assign a \`default_deduction\` for each category, ranging from -0.1 (minor mistakes) to -1 (severe mistakes). Use the following default deductions:
   - "Miscellaneous Errors": -1
@@ -40,6 +44,7 @@ export const openaiPrompt = `
     "categories": [
       {
         "slug": "...",
+        "default": true,
         "title": "...",
         "description": "...",
         "pids": ["12345", "23456"],

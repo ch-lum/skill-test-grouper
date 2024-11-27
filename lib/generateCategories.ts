@@ -1,7 +1,24 @@
-{
-  "categories": [
+import openai from "./openai";
+
+export interface Category {
+  slug: string;
+  default: boolean;
+  title: string;
+  description: string;
+  pids: string[];
+  error_lines: {
+    [key: string]: number[];
+  };
+  default_deduction: number;
+}
+
+// export const generateCategories = async () => {
+//   return "test";
+// );
+export const generateCategories = async (): Promise<{ categories: Category[]}> => {
+  return {"categories": [
     {
-      "slug": "miscellaneous-errors",
+      "slug": "miscellaneous",
       "default": true,
       "title": "Miscellaneous Errors",
       "description": "Errors that don’t fit into other categories.",
@@ -70,5 +87,5 @@
       },
       "default_deduction": -0.3
     }
-  ]
-}
+  ]};
+};
