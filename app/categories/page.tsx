@@ -2,22 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { generateCategories, Category } from "@/lib/generateCategories";
+import { useCategories } from "@/context/CategoriesContext";
 import { useRouter } from "next/navigation";
 
 export default function CategoriesPage() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { categories, loading, regenerateCategories } = useCategories();
   const router = useRouter();
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const data = await generateCategories();
-      setCategories(data.categories);
-      setLoading(false);
-    };
-
-    fetchCategories();
-  }, []); // Run once on component mount
 
   // Possibly use loading.tsx?
   if (loading) {
@@ -34,13 +24,6 @@ export default function CategoriesPage() {
       router.push(`/review/${slug}`);
     }
   };
-
-  const handleRegenerate = async () => {
-    setLoading(true);
-    const data = await generateCategories();
-    setCategories(data.categories);
-    setLoading(false);
-  }
 
   return (
     <div className="container mx-auto p-8">
@@ -82,7 +65,7 @@ export default function CategoriesPage() {
       <div className="mt-8">
         {/* Regenerate */}
         <button
-          onClick={handleRegenerate}
+          onClick={regenerateCategories}
           className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-4"
         >
           Regenerate Categories
