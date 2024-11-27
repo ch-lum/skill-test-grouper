@@ -5,7 +5,7 @@ export interface Category {
   default: boolean;
   title: string;
   description: string;
-  pids: string[];
+  email: string[];
   error_lines: {
     [key: string]: number[];
   };
@@ -22,7 +22,7 @@ export const generateCategories = async (): Promise<{ categories: Category[]}> =
       "default": true,
       "title": "Miscellaneous Errors",
       "description": "Errors that don’t fit into other categories.",
-      "pids": ["12345", "23456"],
+      "email": ["anasta", "23456"],
       "error_lines": {
         "12345": [2, 5],
         "23456": [1, 4]
@@ -34,7 +34,7 @@ export const generateCategories = async (): Promise<{ categories: Category[]}> =
       "default": true,
       "title": "Minor Logical Errors or Typos",
       "description": "Small mistakes like syntax errors, misspellings, or sound logic with minor flaws.",
-      "pids": ["23456", "34567"],
+      "email": ["23456", "34567"],
       "error_lines": {
         "23456": [3],
         "34567": [7]
@@ -46,7 +46,7 @@ export const generateCategories = async (): Promise<{ categories: Category[]}> =
       "default": true,
       "title": "Fundamental Misunderstanding",
       "description": "Solutions that indicate a complete lack of understanding of the problem.",
-      "pids": ["12345", "34567"],
+      "email": ["12345", "34567"],
       "error_lines": {
         "12345": [6],
         "34567": [2, 8]
@@ -58,7 +58,7 @@ export const generateCategories = async (): Promise<{ categories: Category[]}> =
       "default": false,
       "title": "Forgot List Methods Are In Place",
       "description": "Errors where students forgot that list methods modify the object in place.",
-      "pids": ["45678"],
+      "email": ["45678"],
       "error_lines": {
         "45678": [4]
       },
@@ -69,7 +69,7 @@ export const generateCategories = async (): Promise<{ categories: Category[]}> =
       "default": false,
       "title": "Missed Edge Cases",
       "description": "Errors where edge cases were not considered in the solution.",
-      "pids": ["23456", "45678"],
+      "email": ["23456", "45678"],
       "error_lines": {
         "23456": [8],
         "45678": [2]
@@ -81,7 +81,7 @@ export const generateCategories = async (): Promise<{ categories: Category[]}> =
       "default": false,
       "title": "Incorrect Variable Names",
       "description": "Errors caused by using undefined or incorrectly named variables.",
-      "pids": ["12345"],
+      "email": ["12345"],
       "error_lines": {
         "12345": [9]
       },
