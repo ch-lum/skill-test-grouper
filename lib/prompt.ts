@@ -1,5 +1,5 @@
 export const openaiPrompt = `
-  Analyze the following user-submitted code snippets, indexed by student PID, for errors. Group the submissions into exactly six categories. These categories must include the following **default categories**:
+  Analyze the following user-submitted code snippets, indexed by student email, for errors. Group the submissions into exactly six categories. These categories must include the following **default categories**:
 
   1. **"Miscellaneous Errors"**: Errors that don’t fit into other categories.
   2. **"Minor Logical Errors or Typos"**: Small mistakes like syntax errors, misspellings, or sound logic with minor flaws.
@@ -12,15 +12,15 @@ export const openaiPrompt = `
   - Whether the category is a default category (true or false).
   - A \`title\` summarizing the category.
   - A \`description\` explaining the category in 1–2 sentences.
-  - An array of PIDs (\`pids\`) identifying the students whose submissions fall into this category.
-  - An array of line numbers for each PID (\`error_lines\`) highlighting where the error occurs.
+  - An array of emails (\`emails\`) identifying the students whose submissions fall into this category.
+  - An array of line numbers for each email (\`error_lines\`) highlighting where the error occurs.
 
   Ensure that:
-  - **Every PID is included in at least one category.**
-  - **Every PID is associated with at least one error line.**
-  - **Each category contains at least one PID.**
-  - If a PID applies to multiple categories, include it in all relevant categories.
-  - If a PID does not fit into any generated categories, it must appear in "Miscellaneous Errors."
+  - **Every email is included in at least one category.**
+  - **Every email is associated with at least one error line.**
+  - **Each category contains at least one email.**
+  - If a email applies to multiple categories, include it in all relevant categories.
+  - If a email does not fit into any generated categories, it must appear in "Miscellaneous Errors."
   - The slug for "Miscellaneous Errors" must be "miscellaneous."
 
   Additionally, assign a \`default_deduction\` for each category, ranging from -0.1 (minor mistakes) to -1 (severe mistakes). Use the following default deductions:
@@ -47,7 +47,7 @@ export const openaiPrompt = `
         "default": true,
         "title": "...",
         "description": "...",
-        "pids": ["12345", "23456"],
+        "emails": ["12345", "23456"],
         "error_lines": { "12345": [2, 5], "23456": [3] },
         "default_deduction": ...
       },
