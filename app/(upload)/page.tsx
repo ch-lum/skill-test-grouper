@@ -5,6 +5,8 @@ import { useDropzone } from "react-dropzone";
 import { useRouter } from "next/navigation";
 
 export default function UploadPage() {
+  const debugging = true;
+
   const [folderFiles, setFolderFiles] = useState<File[]>([]);
   const [gradeFiles, setGradeFiles] = useState<File[]>([]);
   const router = useRouter();
@@ -79,7 +81,8 @@ export default function UploadPage() {
       </div>
       <button
         onClick={handleUpload}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded 1 ${((folderFiles.length === 0 || gradeFiles.length === 0) && !debugging) ? 'bg-gray-500 cursor-not-allowed hover:bg-gray-700' : ''}}`}
+        disabled={(folderFiles.length === 0 || gradeFiles.length === 0) && !debugging}
       >
         Upload Files
       </button>
