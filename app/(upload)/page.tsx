@@ -27,9 +27,17 @@ export default function UploadPage() {
 
   return (
     <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-semibold mb-6">Upload Python Files</h1>
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Upload Folder</h2>
+        <h1 className="text-4xl font-semibold mb-6">Skill Test Grading Assistant</h1>
+        <p className="text-lg">
+          This tool was made to make awarding partial credit on skill tests easy.
+          [Blurb blurb blurb].
+          Upload the EdStem Python folder and the autograder file to get started.
+        </p>
+      </div>
+      <h2 className="text-3xl font-semibold mb-4">File Upload</h2>
+      <div className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">Upload Python Folder</h2>
         <div
           {...getRootPropsFolder()}
           className="border-2 border-dashed border-gray-400 p-6 rounded-lg text-center cursor-pointer"
