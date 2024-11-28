@@ -39,7 +39,7 @@ export default function ReviewPage() {
   const [pointDeduction, setPointDeduction] = useState<number>(defaultDeduction);
 
   // Colors for backgrounds
-  const colors = ["bg-red-500", "bg-orange-500", "bg-yellow-500", "bg-green-500", "bg-blue-500", "bg-purple-500"];
+  const colors = ["bg-red-100", "bg-orange-100", "bg-yellow-100", "bg-green-100", "bg-blue-100", "bg-purple-100"];
   const codeBGColor = colors[currentCategoryIndex % colors.length];
 
   // Handlers

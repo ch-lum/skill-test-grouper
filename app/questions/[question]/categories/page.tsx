@@ -26,13 +26,14 @@ const Modal = ({ isOpen, onClose, codeSnippet, highlight, title }: { isOpen: boo
 };
 
 export default function CategoriesPage() {
-  const { categories, loading, regenerateCategories, questionData } = useCategories();
+  const { categories, loading, regenerateCategories, questionData, setCategories } = useCategories();
   const router = useRouter();
   const params = useParams();
   const question = params.question as string;
   const [expandedSnippets, setExpandedSnippets] = useState<string | null>(null);
   const [expandedHighlight, setExpandedHighlight] = useState<number[]>([]);
   const [expandedTitle, setExpandedTitle] = useState<string>("");
+  const [deductions, setDeductions] = useState<{ [key: string]: number }>({});
 
   // Possibly use loading.tsx?
   if (loading) {
@@ -52,8 +53,27 @@ export default function CategoriesPage() {
     setExpandedSnippets(null);
   }
 
+  const handleDeductionChange = (slug: string, value: number) => {
+    setDeductions((prev) => ({
+      ...prev,
+      [slug]: value,
+    }));
+  };
+
   // Button logic
   const handleProceed = () => {
+    const updatedCategories = categories.map((category) => {
+      if (deductions[category.slug] !== undefined) {
+        return {
+          ...category,
+          default_deduction: deductions[category.slug],
+        };
+      }
+      return category;
+    });
+
+    setCategories(updatedCategories);
+
     const slug = aiCategories[0].slug;
     if (slug) {
       router.push(`review/${slug}`);
@@ -70,9 +90,21 @@ export default function CategoriesPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {aiCategories.map((category, index) => (
             <div key={index} className="category-card bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-medium mb-4">{category.title}</h3>
-              <p className="text-sm text-gray-600 mb-4 italic">Count: {category.email.length}</p>
-              <p className="text-sm text-gray-600 mb-4">{category.description}</p>
+              <h3 className="text-xl font-medium mb-2">{category.title}</h3>
+              <p className="text-sm text-gray-600 mb-2">{category.description}</p>
+              <p className="text-sm text-gray-600 mb-2 italic">Count: {category.email.length}</p>
+              <div className="flex items-center mb-2">
+                <p className="text-sm text-gray-600 mr-2">Suggested deduction</p>
+                <input 
+                  type="number" 
+                  min={-1}
+                  step={0.1}
+                  max={0}
+                  defaultValue={category.default_deduction}
+                  onChange={(e) => handleDeductionChange(category.slug, Number(e.target.value))}
+                  className="text-sm border border-gray-300 rounded-lg p-2 w-1/3" 
+                />
+              </div>
               <div 
                 className="code-snippet bg-gray-100 p-4 rounded-lg cursor-pointer"
                 onClick={() => handleSnippetClick(
@@ -94,8 +126,21 @@ export default function CategoriesPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {defaultCategories.map((category, index) => (
             <div key={index} className="category-card bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-medium mb-4">{category.title}</h3>
-              <p className="text-sm text-gray-600 mb-4 italic">Count: {category.email.length}</p>
+              <h3 className="text-xl font-medium mb-2">{category.title}</h3>
+              <p className="text-sm text-gray-600 mb-2">{category.description}</p>
+              <p className="text-sm text-gray-600 mb-2 italic">Count: {category.email.length}</p>
+              <div className="flex items-center mb-0">
+                <p className="text-sm text-gray-600 mr-2">Suggested deduction</p>
+                <input 
+                  type="number" 
+                  min={-1}
+                  step={0.1}
+                  max={0}
+                  defaultValue={category.default_deduction}
+                  onChange={(e) => handleDeductionChange(category.slug, Number(e.target.value))}
+                  className="text-sm border border-gray-300 rounded-lg p-2 w-1/3" 
+                />
+              </div>
             </div>
           ))}
         </div>
