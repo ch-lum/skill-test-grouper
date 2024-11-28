@@ -43,13 +43,13 @@ export const openaiPrompt = `
   {
     "categories": [
       {
-        "slug": "...",
+      "slug": "...",
         "default": true,
         "title": "...",
         "description": "...",
-        "emails": ["12345", "23456"],
-        "error_lines": { "12345": [2, 5], "23456": [3] },
-        "default_deduction": ...
+        "emails": ["chris@ucsd.edu", "anastasiya@ucsd.edu"],
+        "error_lines": { "chris@ucsd.edu": [2, 5], "anastasiya@ucsd.edu": [3] },
+        "default_deduction": 0.1
       },
       ...
     ]

@@ -1,38 +1,14 @@
 {
-  "question-1": [
-    {
-      "email": "anastasiya@ucsd.edu",
-      "code": "def test():\n    return 1"
-    },
-    {
-      "email": "chris@ucsd.edu",
-      "code": "def test():\n    output: int = 1\n    return output"
-    },
-    {
-      "email": "jaden@ucsd.edu",
-      "code": "def test():\n    return '1'"
-    },
-    {
-      "email": "nim@ucsd.edu",
-      "code": "def test():\n    return 2"
-    }
-  ],
-  "question-2": [
-    {
-      "email": "anastasiya@ucsd.edu",
-      "code": "def fizzbuzz(n):\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)"
-    },
-    {
-      "email": "chris@ucsd.edu",
-      "code": "def fizzbuzz(n):\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)"
-    },
-    {
-      "email": "jaden@ucsd.edu",
-      "code": "def fizzbuzz(n):\n    return [\"Fizz\" if i % 3 == 0 else \"\" + \"Buzz\" if i % 5 == 0 else \"\" or str(i) for i in range(1, n + 1)]"
-    },
-    {
-      "email": "nim@ucsd.edu",
-      "code": "def fizzbuzz(n):\n    fizzbuzz_dict = {3: \"Fizz\", 5: \"Buzz\"}\n    for i in range(1, n + 1):\n        output = \"\"\n        for key in fizzbuzz_dict:\n            if i % key == 0:\n                output += fizzbuzz_dict[key]\n        print(output or i)"
-    }
-  ]
+  "question-1": {
+    "anastasiya@ucsd.edu": "def test():\n    return 1",
+    "chris@ucsd.edu": "def test():\n    output: int = 1\n    return output",
+    "jaden@ucsd.edu": "def test():\n    return '1'",
+    "nim@ucsd.edu": "def test():\n    return 2"
+  },
+  "question-2": {
+    "anastasiya@ucsd.edu": "def fizzbuzz(n):\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)",
+    "chris@ucsd.edu": "def fizzbuzz(n):\n    for i in range(1, n + 1):\n        if i % 3 == 0 and i % 5 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)",
+    "jaden@ucsd.edu": "def fizzbuzz(n):\n    return [\"Fizz\" if i % 3 == 0 else \"\" + \"Buzz\" if i % 5 == 0 else \"\" or str(i) for i in range(1, n + 1)]",
+    "nim@ucsd.edu": "def fizzbuzz(n):\n    fizzbuzz_dict = {3: \"Fizz\", 5: \"Buzz\"}\n    for i in range(1, n + 1):\n        output = \"\"\n        for key in fizzbuzz_dict:\n            if i % key == 0:\n                output += fizzbuzz_dict[key]\n        print(output or i)"
+  }
 }

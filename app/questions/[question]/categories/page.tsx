@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react";
 import { generateCategories, Category } from "@/lib/generateCategories";
 import { useCategories } from "@/context/CategoriesContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
 export default function CategoriesPage() {
   const { categories, loading, regenerateCategories } = useCategories();
   const router = useRouter();
+  const params = useParams();
+  const question = params.question as string;
 
   // Possibly use loading.tsx?
   if (loading) {
@@ -21,7 +23,7 @@ export default function CategoriesPage() {
   const handleProceed = () => {
     const slug = aiCategories[0].slug;
     if (slug) {
-      router.push(`/review/${slug}`);
+      router.push(`review/${slug}`);
     }
   };
 
@@ -65,7 +67,7 @@ export default function CategoriesPage() {
       <div className="mt-8">
         {/* Regenerate */}
         <button
-          onClick={regenerateCategories}
+          onClick={() => regenerateCategories(question)}
           className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-4"
         >
           Regenerate Categories

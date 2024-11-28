@@ -1,7 +1,10 @@
+"use client";
+
 type Props = {
   children: React.ReactNode;
   params: {
-    category?: string; // Dynamic parameter for the layout
+    question: string
+    category: string; // Dynamic parameter for the layout
   };
 };
 

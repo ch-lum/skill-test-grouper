@@ -1,9 +1,13 @@
-const test = process.env.OPENAI_API_KEY as string;
+"use client"
+
+import { useCategories } from "@/context/CategoriesContext";
 
 export default function DownloadPage() {
+  const { questionData } = useCategories();
+  console.log(questionData);
   return (
     <div>
-      <p>Test: {test}</p>
+      <p>Test: </p>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { solarizedlight } from 'react-syntax-highlighter/dist/esm/styles/prism'; 
+import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism'; 
 
 interface CodeBlockProps {
   code: string;
@@ -8,7 +8,7 @@ interface CodeBlockProps {
 
 const CodeBlock: React.FC<CodeBlockProps> = ({ code, language }) => {
   return (
-    <SyntaxHighlighter language={language} style={solarizedlight}>
+    <SyntaxHighlighter language={language} style={materialDark}>
       {code}
     </SyntaxHighlighter>
   );

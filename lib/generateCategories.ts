@@ -12,10 +12,11 @@ export interface Category {
   default_deduction: number;
 }
 
-// export const generateCategories = async () => {
+// Only select from data the fields that are needed (questionName)
+// export const generateCategories = async (questionName: string): Promise<{ categories: Category[]}> => {
 //   return "test";
 // );
-export const generateCategories = async (): Promise<{ categories: Category[]}> => {
+export const generateCategories = async (questionName: string): Promise<{ categories: Category[]}> => {
   return {"categories": [
     {
       "slug": "miscellaneous",
@@ -57,9 +58,11 @@ export const generateCategories = async (): Promise<{ categories: Category[]}> =
       "default": false,
       "title": "Forgot List Methods Are In Place",
       "description": "Errors where students forgot that list methods modify the object in place.",
-      "email": ["nim@ucsd.edu"],
+      "email": ["nim@ucsd.edu", "chris@ucsd.edu", "anastasiya@ucsd.edu"],
       "error_lines": {
-        "nim@ucsd.edu": [4]
+        "nim@ucsd.edu": [4],
+        "chris@ucsd.edu": [3],
+        "anastasiya@ucsd.edu": [2]
       },
       "default_deduction": -0.5
     },
