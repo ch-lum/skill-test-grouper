@@ -41,14 +41,14 @@ export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
   // This function is used to fetch the categories for a specific question, might never be used
   const fetchCategories = async (questionName: string) => {
     const data = await generateCategories(questionName);
-    setCategories(data.categories);
+    setCategories(data);
     setLoading(false);
   };
 
   const regenerateCategories = async (questionName: string) => {
     setLoading(true);
     const data = await generateCategories(questionName); // might want a regenerate function so you don't just get the same groups over and over
-    setCategories(data.categories);
+    setCategories(data);
     setLoading(false);
     console.log('Categories loaded,', questionName);
   };

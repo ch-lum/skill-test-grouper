@@ -8,7 +8,13 @@ interface CodeBlockProps {
 
 const CodeBlock: React.FC<CodeBlockProps> = ({ code, language }) => {
   return (
-    <SyntaxHighlighter language={language} style={materialDark}>
+    <SyntaxHighlighter 
+      language={language} 
+      style={materialDark}
+      wrapLines={true}
+      lineProps={{ style: { whiteSpace: 'pre-wrap' } }}
+      showLineNumbers={true}
+    >
       {code}
     </SyntaxHighlighter>
   );
