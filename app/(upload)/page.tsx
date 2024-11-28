@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { useRouter } from "next/navigation";
 
 export default function UploadPage() {
   const [folderFiles, setFolderFiles] = useState<File[]>([]);
   const [gradeFiles, setGradeFiles] = useState<File[]>([]);
+  const router = useRouter();
 
   const onDropFolder = (acceptedFiles: File[]) => {
     setFolderFiles(acceptedFiles);
@@ -24,6 +26,15 @@ export default function UploadPage() {
     onDrop: onDropGrades,
     multiple: false,
   });
+
+  const handleUpload = () => {
+    // Handle file upload logic here
+    console.log("Folder Files:", folderFiles);
+    console.log("Grade Files:", gradeFiles);
+
+    // Redirect to the questions page
+    router.push("/questions");
+  }
 
   return (
     <div className="container mx-auto p-8">
@@ -67,11 +78,7 @@ export default function UploadPage() {
         </ul>
       </div>
       <button
-        onClick={() => {
-          // Handle file upload logic here
-          console.log("Folder Files:", folderFiles);
-          console.log("Grade Files:", gradeFiles);
-        }}
+        onClick={handleUpload}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         Upload Files

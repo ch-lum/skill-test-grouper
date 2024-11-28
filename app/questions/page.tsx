@@ -56,6 +56,13 @@ export default function QuestionsPage() {
     localStorage.setItem("disabledButtons", JSON.stringify(updatedDisabledButtons));
   };
 
+  const handleFinish = () => {
+    console.log("Finish button clicked");
+    router.push("/download");
+  }
+
+  const allButtonsDisabled = questionNames.length > 0 && questionNames.every((question) => disabledButtons.includes(question));
+
   return (
     <div className="container mx-auto p-8">
       <h1 className="text-3xl font-semibold mb-6">Select Question</h1>
@@ -72,6 +79,14 @@ export default function QuestionsPage() {
           </li>
         ))}
       </ul>
+      {allButtonsDisabled && (
+        <button
+          onClick={handleFinish}
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+        >
+          Finish
+        </button>
+      )}
     </div>
   );
 }

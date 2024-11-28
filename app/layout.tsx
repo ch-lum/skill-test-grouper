@@ -43,7 +43,7 @@ export default function RootLayout({
     const redirectToQuestions = localStorage.getItem("redirectToQuestions");
     if (redirectToQuestions === "true") {
       localStorage.removeItem("redirectToQuestions");
-      // router.push("/questions");
+      router.push("/");
     }
   }, [router]);
 
