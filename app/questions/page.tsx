@@ -5,9 +5,10 @@ import { useRouter } from "next/navigation";
 import { useCategories } from "@/context/CategoriesContext";
 
 export default function QuestionsPage() {
+  const { regenerateCategories, questionData } = useCategories();
   const [selectedQuestion, setSelectedQuestion] = useState<string | null>(null);
   const [questionNames, setQuestionNames] = useState<string[]>([]);
-  const { regenerateCategories, questionData } = useCategories();
+  const [disabledButtons, setDisabledButtons] = useState<string[]>([]);
   const router = useRouter();
 
   // Loads question names from questionData
@@ -22,10 +23,37 @@ export default function QuestionsPage() {
     fetchQuestions();
   }, [questionData]);
 
+  useEffect(() => {
+    const fetchDisabledButtons = async () => {
+      const disabled = localStorage.getItem("disabledButtons");
+      if (disabled) {
+        setDisabledButtons(JSON.parse(disabled));
+      }
+    };
+
+    fetchDisabledButtons();
+  }, [questionData]);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.removeItem("disabledButtons");
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   const handleSelectQuestion = async (questionName: string) => {
     setSelectedQuestion(questionName);
     await regenerateCategories(questionName);
     router.push(`/questions/${questionName}/categories`);
+
+    const updatedDisabledButtons = [...disabledButtons, questionName];
+    setDisabledButtons(updatedDisabledButtons);
+    localStorage.setItem("disabledButtons", JSON.stringify(updatedDisabledButtons));
   };
 
   return (
@@ -36,7 +64,8 @@ export default function QuestionsPage() {
           <li key={index}>
             <button
               onClick={() => handleSelectQuestion(question)}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 ${disabledButtons.includes(question) ? 'bg-gray-500 cursor-not-allowed hover:bg-gray-700' : ''}`}
+              disabled={disabledButtons.includes(question)}
             >
               {question}
             </button>

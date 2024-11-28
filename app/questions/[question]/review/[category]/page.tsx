@@ -92,7 +92,7 @@ export default function ReviewPage() {
   return (
     <div>
       <div className="relative mb-8">
-        <div className="absolute top-0 right-0 bg-gray-200 text-gray-800 font-bold py-1 px-3 rounded-bl-lg z-10">
+        <div className="absolute top-0 left-0 bg-gray-200 text-gray-800 font-bold py-1 px-3 rounded-br-lg z-10">
           {currentSnippetIndex + 1} / {codeSnippets.length}
         </div>
         <div className={`code-snippet ${codeBGColor} p-4 rounded-lg mb-8 relative z-0`}>
