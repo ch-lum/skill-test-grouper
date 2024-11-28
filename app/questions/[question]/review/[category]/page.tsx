@@ -52,6 +52,13 @@ export default function ReviewPage() {
       console.log("No more snippets");
       // Find next category
       const currentCategoryIndex = categories.findIndex((cat) => cat.slug === categorySlug);
+      const nextCategorySlug = categories[currentCategoryIndex + 1]?.slug;
+      if (nextCategorySlug) {
+        router.push(`/questions/${question}/review/${nextCategorySlug}`);
+      } else {
+        // No more categories
+        console.log("No more categories");
+      }
     }
   }
 

@@ -7,7 +7,7 @@ export interface Category {
   description: string;
   email: string[];
   error_lines: {
-    [key: string]: number[];
+    [key: string]: number[]
   };
   default_deduction: number;
 }
@@ -16,8 +16,18 @@ export interface Category {
 // export const generateCategories = async (questionName: string): Promise<{ categories: Category[]}> => {
 //   return "test";
 // );
-export const generateCategories = async (questionName: string): Promise<{ categories: Category[]}> => {
-  return {"categories": [
+const sortCategories = (categories: Category[]): Category[] => {
+  return categories.sort((a, b) => {
+    if (a.slug === "miscellaneous") return 1;
+    if (b.slug === "miscellaneous") return -1;
+    if (!a.default && b.default) return -1;
+    if (a.default && !b.default) return 1;
+    return 0;
+  });
+};
+
+export const generateCategories = async (questionName: string): Promise<Category[]> => {
+  const categories: Category[] = [
     {
       "slug": "miscellaneous",
       "default": true,
@@ -89,5 +99,7 @@ export const generateCategories = async (questionName: string): Promise<{ catego
       },
       "default_deduction": -0.3
     }
-  ]};
+  ];
+
+  return sortCategories(categories);
 };
