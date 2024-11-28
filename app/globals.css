@@ -19,3 +19,31 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.fade-out {
+  animation: fadeOut 0.2s forwards;
+}
+
+.fade-in {
+  animation: fadeIn 0.2s forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    background-color: white;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    background-color: white;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -12,6 +12,7 @@ interface CategoriesContextType {
   categories: Category[];
   loading: boolean;
   regenerateCategories: (questionName: string) => Promise<void>;
+  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
   questionData: QuestionData | null;
 }
 
@@ -54,7 +55,7 @@ export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <CategoriesContext.Provider value={{ categories, loading, regenerateCategories, questionData }}>
+    <CategoriesContext.Provider value={{ categories, loading, regenerateCategories, setCategories, questionData }}>
       {children}
     </CategoriesContext.Provider>
   );
@@ -66,4 +67,4 @@ export const useCategories = () => {
     throw new Error('useCategories must be used within a CategoriesProvider');
   }
   return context;
-}
+};
