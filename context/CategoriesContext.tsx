@@ -14,6 +14,8 @@ interface CategoriesContextType {
   regenerateCategories: (questionName: string) => Promise<void>;
   setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
   questionData: QuestionData | null;
+  csvData: any[];
+  setCsvData: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 const CategoriesContext = createContext<CategoriesContextType | undefined>(undefined);
@@ -22,6 +24,7 @@ export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [questionData, setQuestionData] = useState<QuestionData | null>(null);
+  const [csvData, setCsvData] = useState<any[]>([]);
 
   // This might need to change after the preprocessing is implemented
   const setPreprocessedData = async (data: QuestionData) => {
@@ -55,7 +58,7 @@ export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <CategoriesContext.Provider value={{ categories, loading, regenerateCategories, setCategories, questionData }}>
+    <CategoriesContext.Provider value={{ categories, loading, regenerateCategories, setCategories, questionData, csvData, setCsvData }}>
       {children}
     </CategoriesContext.Provider>
   );

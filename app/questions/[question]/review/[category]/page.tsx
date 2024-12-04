@@ -4,10 +4,11 @@ import { useParams, useRouter } from "next/navigation";
 import { useCategories } from "@/context/CategoriesContext";
 import { useState, useEffect, Suspense } from "react";
 import CodeBlock from "@/app/ui/CodeBlock";
+import { CSVLink } from "react-csv";
 // import "@/globals.css"
 
 export default function ReviewPage() {
-  const { questionData, categories, setCategories } = useCategories();
+  const { questionData, categories, setCategories, csvData, setCsvData } = useCategories();
   const params = useParams();
   const router = useRouter();
   const question = params.question as string;
@@ -68,7 +69,15 @@ export default function ReviewPage() {
   }
 
   const handleYes = () => {
-    // Send the data to the backend
+    const currentEmail = emails[currentSnippetIndex];
+    const newRow = {
+      question,
+      email: currentEmail,
+      category: (categorySlug === "miscellaneous") ? "miscellaneous" : categorySlug, // I want this to be the comment from miscellaneous
+      deduction: pointDeduction,
+    };
+    setCsvData((prevData) => [...prevData, newRow]);
+
     handleNext();
   }
 
@@ -149,7 +158,7 @@ export default function ReviewPage() {
               className="border border-gray-300 rounded py-2 px-4" 
               placeholder="Point Deduction"
             />
-            <button onClick={handleNext} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+            <button onClick={handleYes} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
               {currentSnippetIndex >= codeSnippets.length - 1 ? "Finish" : "Next"}
             </button>
           </div>
