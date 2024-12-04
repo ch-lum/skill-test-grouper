@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CategoriesProvider } from "@/context/CategoriesContext";
 import localFont from "next/font/local";
@@ -17,12 +17,36 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+const HelperModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-3xl w-full relative z-10">
+        <button onClick={onClose} className="absolute top-4 right-4 text-gray-600 hover:text-gray-900">
+          Close
+        </button>
+        <h2 className="text-2xl font-semibold mb-4">Helper</h2>
+        <p className="text-lg">
+          This is a helper modal. You can put your README or any other helpful content here.
+        </p>
+      </div>
+      <button
+        onClick={onClose}
+        className="absolute inset-0 w-full h-full bg-transparent z-0"
+        aria-label="Close"
+      />
+    </div>
+  );
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -47,6 +71,14 @@ export default function RootLayout({
     }
   }, [router]);
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <html lang="en">
       <body
@@ -55,6 +87,14 @@ export default function RootLayout({
         <CategoriesProvider>
           {children}
         </CategoriesProvider>
+        <HelperModal isOpen={isModalOpen} onClose={handleCloseModal} />
+        <button
+          onClick={handleOpenModal}
+          className="fixed bottom-4 right-4 bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg font-bold text-xl z-50"
+          aria-label="Open Helper"
+        >
+          ?
+        </button>
       </body>
     </html>
   );

@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useCategories } from "@/context/CategoriesContext";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import CodeBlock from "@/app/ui/CodeBlock";
 // import "@/globals.css"
 
@@ -39,7 +39,7 @@ export default function ReviewPage() {
   const [pointDeduction, setPointDeduction] = useState<number>(defaultDeduction);
 
   // Colors for backgrounds
-  const colors = ["bg-red-100", "bg-orange-100", "bg-yellow-100", "bg-green-100", "bg-blue-100", "bg-purple-100"];
+  const colors = ["bg-red-200", "bg-orange-200", "bg-yellow-200", "bg-green-200", "bg-blue-200", "bg-purple-200"];
   const codeBGColor = colors[currentCategoryIndex % colors.length];
 
   // Handlers
@@ -90,7 +90,8 @@ export default function ReviewPage() {
   }
 
   return (
-    <div>
+    <div className="container mx-auto p-8">
+      <Suspense fallback={<div>Loading next snippet...</div>}>
       <div className="relative mb-8">
         <div className="absolute top-0 left-0 bg-gray-200 text-gray-800 font-bold py-1 px-3 rounded-br-lg z-10">
           {currentSnippetIndex + 1} / {codeSnippets.length}
@@ -154,6 +155,7 @@ export default function ReviewPage() {
           </div>
         </div>
       )}
+      </Suspense>
     </div>
   );
 }
