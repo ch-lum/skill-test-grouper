@@ -13,10 +13,12 @@ export default function UploadPage() {
 
   const onDropFolder = (acceptedFiles: File[]) => {
     setFolderFiles(acceptedFiles);
+    saveFilesLocally(acceptedFiles);
   };
 
   const onDropGrades = (acceptedFiles: File[]) => {
     setGradeFiles(acceptedFiles);
+    saveFilesLocally(acceptedFiles);
   };
 
   const { getRootProps: getRootPropsFolder, getInputProps: getInputPropsFolder } = useDropzone({
@@ -28,6 +30,18 @@ export default function UploadPage() {
     onDrop: onDropGrades,
     multiple: false,
   });
+
+  const saveFilesLocally = (files: File[]) => {
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const fileContent = reader.result;
+        // Save the file content locally (e.g., localStorage)
+        localStorage.setItem(file.name, fileContent as string);
+      };
+      reader.readAsText(file);
+    });
+  };
 
   const handleUpload = () => {
     // Handle file upload logic here
