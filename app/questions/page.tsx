@@ -9,6 +9,7 @@ export default function QuestionsPage() {
   const [selectedQuestion, setSelectedQuestion] = useState<string | null>(null);
   const [questionNames, setQuestionNames] = useState<string[]>([]);
   const [disabledButtons, setDisabledButtons] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
   // Loads question names from questionData
@@ -48,7 +49,10 @@ export default function QuestionsPage() {
 
   const handleSelectQuestion = async (questionName: string) => {
     setSelectedQuestion(questionName);
-    await regenerateCategories(questionName);
+    setIsLoading(true);
+    await regenerateCategories(questionName, questionData);
+    setIsLoading(false);
+    console.log(isLoading);
     router.push(`/questions/${questionName}/categories`);
 
     const updatedDisabledButtons = [...disabledButtons, questionName];
@@ -65,6 +69,14 @@ export default function QuestionsPage() {
 
   return (
     <div className="container mx-auto p-8">
+      {/* Loading Overlay */}
+      <div className="relative">
+        {isLoading && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="loader"></div>
+          </div>
+        )}
+      </div>
       <h1 className="text-3xl font-semibold mb-6">Select Question</h1>
       <ul>
         {questionNames.map((question, index) => (

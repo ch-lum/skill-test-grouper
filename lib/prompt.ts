@@ -1,5 +1,6 @@
 export const openaiPrompt = `
-  Analyze the following user-submitted code snippets, indexed by student email, for errors. Group the submissions into exactly six categories. These categories must include the following **default categories**:
+  You will reply with a JSON object that is code-readable and only the object.
+  You will receive participant-submitted code snippets, indexed by student email, for errors. Group the submissions into exactly six categories. These categories must include the following **default categories**:
 
   1. **"Miscellaneous Errors"**: Errors that don’t fit into other categories.
   2. **"Minor Logical Errors or Typos"**: Small mistakes like syntax errors, misspellings, or sound logic with minor flaws.
@@ -31,27 +32,24 @@ export const openaiPrompt = `
 
   Input:
   {
-    "submissions": {
-      "12345": "<code snippet>",
-      "23456": "<code snippet>",
-      ...
-    }
+      "submissions": {
+          "chris@ucsd.edu": "<code snippet>",
+          "anastasiya@ucsd.edu": "<code snippet>",
+          ...
+      }
   }
 
   Output:
-  \`\`\`json
-  {
-    "categories": [
+  [
       {
       "slug": "...",
-        "default": true,
-        "title": "...",
-        "description": "...",
-        "emails": ["chris@ucsd.edu", "anastasiya@ucsd.edu"],
-        "error_lines": { "chris@ucsd.edu": [2, 5], "anastasiya@ucsd.edu": [3] },
-        "default_deduction": 0.1
+      "default": true,
+      "title": "...",
+      "description": "...",
+      "emails": ["chris@ucsd.edu", "anastasiya@ucsd.edu"],
+      "error_lines": { "chris@ucsd.edu": [2, 5], "anastasiya@ucsd.edu": [3] },
+      "default_deduction": 0.1
       },
       ...
-    ]
-  }
+  ]
 `;

@@ -17,7 +17,7 @@ export default function ReviewPage() {
   const categorySlug = params.category as string;
   const currentCategoryIndex = categories.findIndex((cat) => cat.slug === categorySlug);
 
-  const emails = categories.find((cat) => cat.slug === categorySlug)?.email;
+  const emails = categories.find((cat) => cat.slug === categorySlug)?.emails;
   if (!emails) {
     return <div>Category not found</div>;
   }
@@ -88,7 +88,7 @@ export default function ReviewPage() {
       if (cat.slug === "miscellaneous") {
         return {
           ...cat,
-          email: [...cat.email, currentEmail],
+          email: [...cat.emails, currentEmail],
         };
       }
       return cat;
