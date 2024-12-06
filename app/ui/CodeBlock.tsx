@@ -8,6 +8,7 @@ interface CodeBlockProps {
 }
 
 const CodeBlock: React.FC<CodeBlockProps> = ({ code, language, highlightLines = []}) => {
+  highlightLines = []; // Removed for demo, not working rn
   return (
     <SyntaxHighlighter 
       language={language} 

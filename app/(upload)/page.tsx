@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useRouter } from "next/navigation";
 
+console.log(process.env);
+
 export default function UploadPage() {
   const debugging = true;
 

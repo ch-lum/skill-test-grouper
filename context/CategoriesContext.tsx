@@ -11,7 +11,7 @@ interface QuestionData {
 interface CategoriesContextType {
   categories: Category[];
   loading: boolean;
-  regenerateCategories: (questionName: string) => Promise<void>;
+  regenerateCategories: (questionName: string, questionData: any) => Promise<void>;
   setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
   questionData: QuestionData | null;
   csvData: any[];
@@ -44,14 +44,13 @@ export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
 
   // This function is used to fetch the categories for a specific question, might never be used
   const fetchCategories = async (questionName: string) => {
-    const data = await generateCategories(questionName);
+    const data = await generateCategories(questionName, questionData);
     setCategories(data);
     setLoading(false);
   };
 
   const regenerateCategories = async (questionName: string) => {
-    setLoading(true);
-    const data = await generateCategories(questionName); // might want a regenerate function so you don't just get the same groups over and over
+    const data = await generateCategories(questionName, questionData); // might want a regenerate function so you don't just get the same groups over and over
     setCategories(data);
     setLoading(false);
     console.log('Categories loaded,', questionName);
