@@ -34,8 +34,10 @@ export default function CategoriesPage() {
   const [expandedHighlight, setExpandedHighlight] = useState<number[]>([]);
   const [expandedTitle, setExpandedTitle] = useState<string>("");
   const [deductions, setDeductions] = useState<{ [key: string]: number }>({});
+  const [isLoading, setIsLoading] = useState(false);
 
   // Possibly use loading.tsx?
+  console.log(loading);
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -80,8 +82,23 @@ export default function CategoriesPage() {
     }
   };
 
+  const handleRegenerate = async () => {
+    setIsLoading(true);
+    await regenerateCategories(question, questionData);
+    setIsLoading(false);
+  }
+
   return (
     <div className="container mx-auto p-8">
+      {/* Loading Overlay */}
+      <div className="relative">
+        {isLoading && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="loader"></div>
+          </div>
+        )}
+      </div>
+      
       <h1 className="text-3xl font-semibold mb-6">Categories Overview</h1>
 
       {/* AI-generated Categories */}
@@ -92,7 +109,7 @@ export default function CategoriesPage() {
             <div key={index} className="category-card bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-medium mb-2">{category.title}</h3>
               <p className="text-sm text-gray-600 mb-2">{category.description}</p>
-              <p className="text-sm text-gray-600 mb-2 italic">Count: {category.email.length}</p>
+              <p className="text-sm text-gray-600 mb-2 italic">Count: {category.emails.length}</p>
               <div className="flex items-center mb-2">
                 <p className="text-sm text-gray-600 mr-2">Suggested deduction</p>
                 <input 
@@ -108,8 +125,8 @@ export default function CategoriesPage() {
               <div 
                 className="code-snippet bg-gray-100 p-4 rounded-lg cursor-pointer"
                 onClick={() => handleSnippetClick(
-                  questionData![question][category.email[0]],
-                  category.error_lines[category.email[0]],
+                  questionData![question][category.emails[0]],
+                  category.error_lines[category.emails[0]],
                   category.title
                 )}
               >
@@ -128,7 +145,7 @@ export default function CategoriesPage() {
             <div key={index} className="category-card bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-medium mb-2">{category.title}</h3>
               <p className="text-sm text-gray-600 mb-2">{category.description}</p>
-              <p className="text-sm text-gray-600 mb-2 italic">Count: {category.email.length}</p>
+              <p className="text-sm text-gray-600 mb-2 italic">Count: {category.emails.length}</p>
               <div className="flex items-center mb-0">
                 <p className="text-sm text-gray-600 mr-2">Suggested deduction</p>
                 <input 
@@ -153,7 +170,7 @@ export default function CategoriesPage() {
       <div className="mt-8">
         {/* Regenerate */}
         <button
-          onClick={() => regenerateCategories(question)}
+          onClick={handleRegenerate}
           className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-4"
         >
           Regenerate Categories

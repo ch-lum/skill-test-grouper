@@ -12,15 +12,15 @@ const CsvDisplay: React.FC<CsvDisplayProps> = ({ data }) => {
   const headers = Object.keys(data[0]);
 
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border border-gray-300">
+    <div className="overflow-auto max-h-full max-w-full border border-gray-300 rounded-lg">
+      <table className="min-w-full bg-white">
         <thead>
           <tr>
             {headers.map((header) => (
               <th key={header} className="py-2 px-4 border-b border-gray-300 bg-gray-100 text-left">
                 {header}
               </th>
-            ))}
+            ))} 
           </tr>
         </thead>
         <tbody>
