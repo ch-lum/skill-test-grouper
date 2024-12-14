@@ -35,7 +35,7 @@ const generateCategories = async (questionName: string, questionData: any): Prom
   console.log("Generating categories for", questionName);
 
   const completion = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
+    model: "gpt-4o",
     messages: [
       { role: "system", content: openaiPrompt },
       { role: "user", content: JSON.stringify(questionData[questionName]) },
