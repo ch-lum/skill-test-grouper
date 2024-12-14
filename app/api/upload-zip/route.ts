@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   //unzip a file
   await decompress('public/data.zip', 'public/data');
 
-  // Run the main function
+  // Run the main function to process the data
   await main();
 
   return NextResponse.json({ status: 200, success: true, message: 'File uploaded successfully!' });
@@ -119,10 +119,10 @@ function removeDocstrings(code: string): string {
 async function createJson(folderPath: string) {
     const failedStudents = await getFailedStudents('public/data/grades.csv');
     const dataDict: Record<string, Record<string, string>> = {
-        'Question 1': {},
-        'Question 2': {},
-        'Question 3': {},
-        'Question 4': {},
+        'Question-1': {},
+        'Question-2': {},
+        'Question-3': {},
+        'Question-4': {},
     };
 
     const subFolders = await fs.readdir(folderPath);
@@ -140,13 +140,6 @@ async function createJson(folderPath: string) {
                 const questions = splitByQuestions(data);
                 const docstrings = await getDocstrings(data);
 
-
-                for (let i = 1; i < questions.length; i++) {
-                    const question = questions[i];
-                    const code = removeDocstrings(question);
-                    
-                }
-
                 // Generate a random email
                 const email = `a${Array.from({ length: 9 }, () =>
                     Math.floor(Math.random() * 10)
@@ -155,7 +148,7 @@ async function createJson(folderPath: string) {
                 if (failedStudents[subFolder]) {
                     const questionIds = failedStudents[subFolder];
                     for (const questionId of questionIds) {
-                        dataDict[`Question ${questionId}`][email] = questions[questionId];
+                        dataDict[`Question-${questionId}`][email] = questions[questionId];
                     }
                 }
             }

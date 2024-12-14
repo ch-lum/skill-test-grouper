@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useRouter } from "next/navigation";
+import { useCategories } from "@/context/CategoriesContext";
 
 console.log(process.env);
 
 export default function UploadPage() {
+  const {fetchQuestions} = useCategories();
   const debugging = true;
 
   const [zipFile, setZipFile] = useState<File | null>(null);
@@ -37,6 +39,7 @@ export default function UploadPage() {
       // console.log("Upload result:", result);
 
       // Redirect to the questions page after successful upload
+      fetchQuestions();
       router.push("/questions");
     } catch (error) {
       console.error("Error uploading file:", error);
