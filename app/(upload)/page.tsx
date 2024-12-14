@@ -3,88 +3,125 @@
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useRouter } from "next/navigation";
+import { useCategories } from "@/context/CategoriesContext";
 
 console.log(process.env);
 
 export default function UploadPage() {
+  const {fetchQuestions} = useCategories();
   const debugging = true;
 
-  const [folderFiles, setFolderFiles] = useState<File[]>([]);
-  const [gradeFiles, setGradeFiles] = useState<File[]>([]);
+  const [zipFile, setZipFile] = useState<File | null>(null);
   const router = useRouter();
 
-  const onDropFolder = (acceptedFiles: File[]) => {
-    setFolderFiles(acceptedFiles);
+  const handleUpload = async () => {
+    if (!zipFile) {
+      alert("Please select a ZIP file.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("zipFile", zipFile); // Add the ZIP file to the form data
+
+    try {
+      // Send the form data to the backend API for processing
+      const response = await fetch("/api/upload-zip", {
+        method: "POST",
+        body: formData, // Send the file as FormData
+      });
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.statusText}`);
+      }
+
+      // // Optionally, process the response (e.g., log or display success message)
+      // const result = await response.json();
+      // console.log("Upload result:", result);
+
+      // Redirect to the questions page after successful upload
+      fetchQuestions();
+      router.push("/questions");
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
   };
 
-  const onDropGrades = (acceptedFiles: File[]) => {
-    setGradeFiles(acceptedFiles);
-  };
+  // const onDropFolder = (acceptedFiles: File[]) => {
+  //   setFolderFiles(acceptedFiles);
+  //   saveFilesLocally(acceptedFiles);
+  // };
 
-  const { getRootProps: getRootPropsFolder, getInputProps: getInputPropsFolder } = useDropzone({
-    onDrop: onDropFolder,
-    multiple: true,
-  });
+  // const onDropGrades = (acceptedFiles: File[]) => {
+  //   setGradeFiles(acceptedFiles);
+  //   saveFilesLocally(acceptedFiles);
+  // };
 
-  const { getRootProps: getRootPropsGrades, getInputProps: getInputPropsGrades } = useDropzone({
-    onDrop: onDropGrades,
-    multiple: false,
-  });
+  // const { getRootProps: getRootPropsFolder, getInputProps: getInputPropsFolder } = useDropzone({
+  //   onDrop: onDropFolder,
+  //   multiple: true,
+  // });
 
-  const handleUpload = () => {
-    // Handle file upload logic here
-    console.log("Folder Files:", folderFiles);
-    console.log("Grade Files:", gradeFiles);
+  // const { getRootProps: getRootPropsGrades, getInputProps: getInputPropsGrades } = useDropzone({
+  //   onDrop: onDropGrades,
+  //   multiple: false,
+  // });
 
-    // Redirect to the questions page
-    router.push("/questions");
-  }
+  // const saveFilesLocally = (files: File[]) => {
+  //   files.forEach(file => {
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       const fileContent = reader.result;
+  //       // Save the file content locally (e.g., localStorage)
+  //       localStorage.setItem(file.name, fileContent as string);
+  //     };
+  //     reader.readAsText(file);
+  //   });
+  // };
+
+  // const handleUpload = async () => {
+  //   // Handle file upload logic here
+  //   console.log("Folder Files:", folderFiles);
+  //   console.log("Grade Files:", gradeFiles);
+
+  //   // Redirect to the questions page
+  //   router.push("/questions");
+  // }
+
 
   return (
     <div className="container mx-auto p-8">
       <div className="mb-8">
         <h1 className="text-4xl font-semibold mb-6">Skill Test Grading Assistant</h1>
         <p className="text-lg">
-          This tool was made to make awarding partial credit on skill tests easy.
-          [Blurb blurb blurb].
-          Upload the EdStem Python folder and the autograder file to get started.
+          This tool was made to make awarding partial credit on skill tests easy for instructors.
+          Currently, the skill tests are live coding assessments that are graded for all or no credit.
+          This tool will allow you to grade the tests for partial credit, and give students more feedback on their performance.
+          Stundents in DSC20 will submit their code to EdStem, and the grades will be stored in a CSV file.  
+        
+          Upload the EdStem Python submissions folder and the gradeFiles file to zipped togther.
         </p>
       </div>
-      <h2 className="text-3xl font-semibold mb-4">File Upload</h2>
-      <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Upload Python Folder</h2>
-        <div
-          {...getRootPropsFolder()}
-          className="border-2 border-dashed border-gray-400 p-6 rounded-lg text-center cursor-pointer"
-        >
-          <input {...getInputPropsFolder()} />
-          <p>Drag & drop folder files here, or click to select files</p>
-        </div>
-        <ul className="mt-4">
-          {folderFiles.map((file) => (
-            <li key={file.name}>{file.name}</li>
-          ))}
-        </ul>
-      </div>
-      <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Upload Grades</h2>
-        <div
-          {...getRootPropsGrades()}
-          className="border-2 border-dashed border-gray-400 p-6 rounded-lg text-center cursor-pointer"
-        >
-          <input {...getInputPropsGrades()} />
-          <p>Drag & drop grade file here, or click to select file</p>
-        </div>
-        <ul className="mt-4">
-          {gradeFiles.map((file) => (
-            <li key={file.name}>{file.name}</li>
-          ))}
-        </ul>
+            {/* Upload ZIP File */}
+            <div className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">Upload ZIP File</h2>
+        <input
+          type="file"
+          accept=".zip"
+          onChange={(e) => {
+            if (e.target.files) {
+              setZipFile(e.target.files[0]); // Store the selected ZIP file
+            }
+          }}
+          className="border-2 border-gray-400 p-2 rounded-lg"
+        />
+        <p className="mt-2">{zipFile ? zipFile.name : "No file selected"}</p>
       </div>
       <button
         onClick={handleUpload}
-        className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded 1 ${((folderFiles.length === 0 || gradeFiles.length === 0) && !debugging) ? 'bg-gray-500 cursor-not-allowed hover:bg-gray-700' : ''}}`}
-        disabled={(folderFiles.length === 0 || gradeFiles.length === 0) && !debugging}
+        className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${(
+          !zipFile
+        ) ? "bg-gray-500 cursor-not-allowed hover:bg-gray-700" : ""}`}
+        disabled={!zipFile}
       >
         Upload Files
       </button>

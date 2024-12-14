@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCategories } from "@/context/CategoriesContext";
 
 export default function QuestionsPage() {
-  const { regenerateCategories, questionData } = useCategories();
+  const { fetchCategories, questionData } = useCategories();
   const [selectedQuestion, setSelectedQuestion] = useState<string | null>(null);
   const [questionNames, setQuestionNames] = useState<string[]>([]);
   const [disabledButtons, setDisabledButtons] = useState<string[]>([]);
@@ -50,10 +50,28 @@ export default function QuestionsPage() {
   const handleSelectQuestion = async (questionName: string) => {
     setSelectedQuestion(questionName);
     setIsLoading(true);
-    await regenerateCategories(questionName, questionData);
-    setIsLoading(false);
+
+    try{ 
+      const response = await fetch(`/api/questions/${questionName}?questionName=${questionName}`, {
+      method: 'GET', // Explicitly specifying the HTTP method
+      })
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.statusText}`);
+      }
+      const data = await response.json();
+    
+      // await regenerateCategories(questionName, questionData);
+      setIsLoading(false);
+      fetchCategories();
+      router.push(`/questions/${questionName}/categories`);
+
+    } catch (error) {
+      console.error("Error selecting question:", error);
+    }
+
+
     console.log(isLoading);
-    router.push(`/questions/${questionName}/categories`);
 
     const updatedDisabledButtons = [...disabledButtons, questionName];
     setDisabledButtons(updatedDisabledButtons);

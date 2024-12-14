@@ -30,6 +30,20 @@ const HelperModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void
         <p className="text-lg">
           This is a helper modal. You can put your README or any other helpful content here.
         </p>
+          <ul className="list-disc pl-5">
+            <li>In order to upload your data you will need to zip a file named grades.csv and a folder named submissions.</li>
+            <li>Once you click upload the data will be processed and you will be redirected to the questions page.</li>
+            <li>Note, that if you reload any page you will lose all progress.</li>
+            <li>You can click on each question to begin looking through the categories.</li>
+            <li>If the categories do not satisfy your needs you can click regenerate to create new categories.</li>
+            <li>You can also click on the example to see an example of code that fell into the category.</li>
+            <li>If you are satisfied with the categories you can click review button.</li>
+            <li>If you click &quot;Yes&quot; it will automatically apply the deductions to the student&apos;s grade.</li>
+            <li>If you click &quot;No&quot; the question will be automatically sent into the miscellaneous category.</li>
+            <li>Once you have reviewed all categories you will be able to review the miscellaneous category and add your own comments and deductions.</li>
+            <li>Then, you can move on to the next question, but keep in mind you cannot go back to this one.</li>
+            <li>Once you are done with all of the questions you can click Finish and you will be taken to a page where you can download the csv of the student results.</li>
+          </ul>
       </div>
       <button
         onClick={onClose}

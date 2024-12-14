@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { generateCategories, Category } from "@/lib/generateCategories";
+//import { generateCategories, Category } from "@/lib/generateCategories";
 import { useCategories } from "@/context/CategoriesContext";
 import { useRouter, useParams } from "next/navigation";
 import CodeBlock from "@/app/ui/CodeBlock";
@@ -46,6 +46,7 @@ export default function CategoriesPage() {
   const defaultCategories = categories.filter((category) => category.default);
 
   const handleSnippetClick = (codeSnippet: string, highlight: number[], title: string) => {
+    console.log(categories);
     setExpandedSnippets(codeSnippet);
     setExpandedHighlight(highlight);
     setExpandedTitle(title);
@@ -84,7 +85,7 @@ export default function CategoriesPage() {
 
   const handleRegenerate = async () => {
     setIsLoading(true);
-    await regenerateCategories(question, questionData);
+    await regenerateCategories(question);
     setIsLoading(false);
   }
 
@@ -124,11 +125,13 @@ export default function CategoriesPage() {
               </div>
               <div 
                 className="code-snippet bg-gray-100 p-4 rounded-lg cursor-pointer"
-                onClick={() => handleSnippetClick(
+                onClick={() => {
+                  console.log(questionData)
+                  handleSnippetClick(
                   questionData![question][category.emails[0]],
                   category.error_lines[category.emails[0]],
                   category.title
-                )}
+                )}}
               >
                 <p className="text-sm text-gray-600">Click for example</p>
               </div>
