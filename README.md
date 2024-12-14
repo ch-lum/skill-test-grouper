@@ -21,9 +21,12 @@ In order add your API key to OpenAI API, look for a file named `env.local.md`. R
 Run the development server:
 
 ```bash
-
 npm run dev
 
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+#### Testing the Data
+
+You can download a sample zip file [here](https://drive.google.com/file/d/1fTKVXel0qF5cDc4qAVgC1zjAoJdZTxVZ/view?usp=drive_link)
