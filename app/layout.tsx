@@ -77,13 +77,13 @@ export default function RootLayout({
     };
   }, []);
 
-  // useEffect(() => {
-  //   const redirectToQuestions = localStorage.getItem("redirectToQuestions");
-  //   if (redirectToQuestions === "true") {
-  //     localStorage.removeItem("redirectToQuestions");
-  //     router.push("/");
-  //   }
-  // }, [router]);
+  useEffect(() => {
+    const redirectToQuestions = localStorage.getItem("redirectToQuestions");
+    if (redirectToQuestions === "true") {
+      localStorage.removeItem("redirectToQuestions");
+      router.push("/");
+    }
+  }, [router]);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
