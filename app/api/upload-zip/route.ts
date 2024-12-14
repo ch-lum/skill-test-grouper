@@ -97,7 +97,7 @@ async function getDocstrings(data: string): string[] {
   }
   // Create an object where each docstring corresponds to its index with key "Question {index}"
   const docstringsObject = docstrings.reduce((acc, docstring, index) => {
-    acc[`Question ${index}`] = docstring;
+    acc[`Question ${index + 1}`] = docstring;
     return acc;
   }, {} as Record<string, string>);
 
