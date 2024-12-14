@@ -37,7 +37,7 @@ export default function ReviewPage() {
 
   // Adjust points just in case
   const defaultDeduction = categories.find((cat) => cat.slug === categorySlug)?.default_deduction || -1;
-  const [pointDeduction, setPointDeduction] = useState<number>(defaultDeduction);
+  const [pointDeduction, setPointDeduction] = useState<string>(defaultDeduction.toString());
 
   // Colors for backgrounds
   const colors = ["bg-red-200", "bg-orange-200", "bg-yellow-200", "bg-green-200", "bg-blue-200", "bg-purple-200"];
@@ -45,7 +45,7 @@ export default function ReviewPage() {
 
   // Handlers
   const handlePointDeductionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPointDeduction(Number(event.target.value));
+    setPointDeduction(event.target.value);
   };
 
   const handleNext = () => {
@@ -69,6 +69,14 @@ export default function ReviewPage() {
   }
 
   const handleYes = () => {
+    // Validate the pointDeduction input
+    const deduction = parseFloat(pointDeduction);
+    if (isNaN(deduction) || deduction < -1 || deduction > 0) {
+      alert("Please enter a valid deduction between -1 and 0.");
+      return;
+    }
+    
+    // Add row to CSV data
     const currentEmail = emails[currentSnippetIndex];
     const newRow = {
       question,
@@ -86,9 +94,10 @@ export default function ReviewPage() {
     const currentEmail = emails[currentSnippetIndex];
     const updatedCategories = categories.map((cat) => {
       if (cat.slug === "miscellaneous") {
+        const uniqueEmails = Array.from(new Set([...cat.emails, currentEmail]));
         return {
           ...cat,
-          email: [...cat.emails, currentEmail],
+          emails: uniqueEmails
         };
       }
       return cat;
