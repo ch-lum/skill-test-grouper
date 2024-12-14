@@ -93,9 +93,9 @@ export default function UploadPage() {
       <div className="mb-8">
         <h1 className="text-4xl font-semibold mb-6">Skill Test Grading Assistant</h1>
         <p className="text-lg">
-          This tool was made to make awarding partial credit on skill tests easy for instructors.
+          This tool was made to make awarding partial credit on skill tests easy.
           Currently, the skill tests are live coding assessments that are graded for all or no credit.
-          This tool will allow you to grade the tests for partial credit, and give students more feedback on their performance.
+          With this grading helper instructors can grade the tests for partial credit, and give students more feedback on their performance.
           Stundents in DSC20 will submit their code to EdStem, and the grades will be stored in a CSV file.  
         
           Upload the EdStem Python submissions folder and the gradeFiles file to zipped togther.
