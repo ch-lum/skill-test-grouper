@@ -49,9 +49,6 @@ function addDocstringsToPrompt() {
         - "Fundamental Misunderstanding": -1
         For the new AI-generated categories, suggest an appropriate \`default_deduction\`.
 
-        To help you understand the data, here are the docstrings and doctests for each question:
-        ${docstringsString}
-
         Input:
         {
             "submissions": {
@@ -74,6 +71,9 @@ function addDocstringsToPrompt() {
             },
             ...
         ]
+
+        To help you understand the input data, here are the docstrings and doctests for each question:
+        ${docstringsString}
         `;
         return openaiPrompt;
     } catch (error) {
